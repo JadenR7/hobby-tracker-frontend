@@ -79,11 +79,16 @@ function App() {
   // CREATE - Add a new activity our Redis database
   const createActivity = async (newActivity) => {
     try {
-      // TODO: Make a POST request to create a new activity
-      
-      // TODO: Convert response to JSON
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newActivity),
+      });
 
-      // TODO: Add the new activity to activities state
+      const data = await response.json();
+      setActivities((prev) => [...prev, data.data]);
 
     } catch (error) {
       console.error('Error creating activity:', error);
@@ -135,14 +140,12 @@ function App() {
 
   // Handle saving the form (Create or Update)
   const handleSave = async () => {
-    // TODO: Validate that all fields are filled
+    if (!name || !timeSpent) {
+      alert('Please fill out name and time spent.');
+      return;
+    }
 
-    // TODO: If adding new, call createActivity()
-
-    // TODO: Close the form
-
-    // TODO: Refresh the data by calling fetchActivities()
-
+    await createActivity({ name, timeSpent, notes });
   };
 
   // ========================================
@@ -170,6 +173,26 @@ function App() {
       {/* ========================================
           DATA TABLE
           ======================================== */}
+        <input 
+  placeholder="Name of activity"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
+
+<input 
+  placeholder="Time Spent"
+  value={timeSpent}
+  onChange={(e) => setTimeSpent(e.target.value)}
+/>
+
+<input 
+  placeholder="Notes"
+  value={notes}
+  onChange={(e) => setNotes(e.target.value)}
+/>
+
+        <button onClick={handleSave}>Add Activity</button>
+
         <table>
           <thead>
             <tr>
