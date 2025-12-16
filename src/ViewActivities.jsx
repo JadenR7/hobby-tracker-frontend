@@ -200,21 +200,7 @@ export default function ViewActivities() {
         >
           🏠 Home
         </button>
-
-        <button 
-          onClick={() => navigate(-1)}
-          style={styles.secondaryButton} 
-          onMouseOver={(e) => {
-            e.target.style.background = '#667eea';
-            e.target.style.color = 'white';
-          }}
-          onMouseOut={(e) => {
-            e.target.style.background = 'white';
-            e.target.style.color = '#667eea';
-          }}
-        >
-          Go Back
-        </button>
+        
       </div>
     </div>
   </div>
